@@ -12,3 +12,7 @@ Morse code is a method used in telecommunication to encode text characters as st
 
 
 Its a command line interface program fully written in C++, in which we made use of nested if-else, some inbuilt windows library functions for screen clearing and changing screen and text color. Through this program we have seen how to create a function and how to call it, how getline(), strcmp() and length() functions work, how goto; statement works and how and why to use fflush() function in your program.
+
+Software interface preview is shown below : 
+
+![software interface](../Morse_Code_Generator/preview/interface_preview)
