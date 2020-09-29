@@ -15,4 +15,4 @@ Its a command line interface program fully written in C++, in which we made use 
 
 Software interface preview is shown below : 
 
-![software interface](../Morse_Code_Generator/preview/interface_preview)
+![software interface](/preview/interface_preview.jpg)
