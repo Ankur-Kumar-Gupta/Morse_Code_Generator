@@ -1,192 +1,229 @@
-#include<conio.h>
-#include<ctype.h>
-#include<string.h>
-#include <windows.h>
-#include<iostream>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cctype>
 using namespace std;
-void logo()
+
+class MorseCodeConverter 
 {
-	system("CLS");
-	cout<<"\n \n ";
-	cout<<" \t \t ";cout<<"##     ##   # # #   # # # #    # # #   # # # #      # # # #   # # #   # # # #    # # # #  ";cout<<endl;
-	cout<<" \t \t ";cout<<"# #   # #  #     #  #      #  #        #           #         #     #  #       #  #        ";cout<<endl;
-	cout<<" \t \t ";cout<<"#  # #  #  #     #  #      #  #        #           #         #     #  #       #  #        ";cout<<endl;
-    	cout<<" \t \t ";cout<<"#   #   #  #     #  # # # #    # # #   # # #       #         #     #  #       #  # # #    ";cout<<endl;
-   	cout<<" \t \t ";cout<<"#       #  #     #  #   #           #  #           #         #     #  #       #  #        ";cout<<endl;
-   	cout<<" \t \t ";cout<<"#       #  #     #  #     #         #  #           #         #     #  #       #  #        ";cout<<endl;
-   	cout<<" \t \t ";cout<<"#       #   # # #   #      #   # # #   # # # #      # # # #   # # #   # # # #    # # # #  ";cout<<endl;
-}
-string input()
+	protected:
+    virtual bool isValidInput(const string& input) const 
+	{
+        // Override this method in derived classes to add specific validation rules
+        return true;
+    }
+
+    string sanitizeInput(const string& input) const 
+	{
+        string sanitized = input;
+        for (char& ch : sanitized) 
+		{
+            ch = toupper(ch);
+        }
+        return sanitized;
+    }
+
+    virtual string convertCharToMorse(char ch) const 
+	{
+        switch (ch) 
+		{
+            case 'A': return ".-";
+            case 'B': return "-...";
+            case 'C': return "-.-.";
+            case 'D': return "-..";
+            case 'E': return ".";
+            case 'F': return "..-.";
+            case 'G': return "--.";
+            case 'H': return "....";
+            case 'I': return "..";
+            case 'J': return ".---";
+            case 'K': return "-.-";
+            case 'L': return ".-..";
+            case 'M': return "--";
+            case 'N': return "-.";
+            case 'O': return "---";
+            case 'P': return ".--.";
+            case 'Q': return "--.-";
+            case 'R': return ".-.";
+            case 'S': return "...";
+            case 'T': return "-";
+            case 'U': return "..-";
+            case 'V': return "...-";
+            case 'W': return ".--";
+            case 'X': return "-..-";
+            case 'Y': return "-.--";
+            case 'Z': return "--..";
+            case '1': return ".----";
+            case '2': return "..---";
+            case '3': return "...--";
+            case '4': return "....-";
+            case '5': return ".....";
+            case '6': return "-....";
+            case '7': return "--...";
+            case '8': return "---..";
+            case '9': return "----.";
+            case '0': return "-----";
+            case '.': return ".-.-.-";
+            case ',': return "--..--";
+            case '!': return "-.-.--";
+            case '@': return ".--.-.";
+	        /*
+			else if (msg[i] == '$')
+	            cout<<"...-..-";
+	        else if (msg[i] == '&')
+	            cout<<".-...";
+	        else if (msg[i] == '-')
+	            cout<<"-....-";
+	        else if (msg[i] == '_')
+	            cout<<"..--.-";
+	        else if (msg[i] == '=')
+	            cout<<"-...-";
+	        else if (msg[i] == '+')
+	            cout<<".-.-.";
+	        else if (msg[i] == ';')
+	            cout<<"-.-.-.";
+	        else if (msg[i] == ':')
+	            cout<<"---...";
+	        else if (msg[i] == '\'')
+	            cout<<".----.";
+	        else if (msg[i] == '"')
+	            cout<<".-..-.";
+	        else if (msg[i] == '/')
+	            cout<<"-..-.";
+	        else if (msg[i] == '?')
+	            cout<<"..--..";
+            // Add the remaining special characters...
+            */
+            default: return "";
+        }
+    }
+
+	public:
+    MorseCodeConverter() = default;
+
+    void convertToMorse() 
+	{
+        while (true) {
+            system("CLS");
+            printLogo();
+
+            cout << "\n \n ";
+            string msg = getInput();
+
+            string morse = "";
+            for (char ch : msg) {
+                morse += (ch == ' ') ? "    " : convertCharToMorse(ch) + " ";
+            }
+
+            cout << "\n \t \t Morse Code is : \t" << morse << endl;
+
+            if (!askForRepeat()) {
+                printClosingMessage();
+                break;
+            }
+        }
+    }
+
+    virtual ~MorseCodeConverter() = default;
+
+	protected:
+    virtual void printLogo() const 
+	{
+        cout << "Put your logo here..." << endl;
+    }
+
+    virtual string getInput() const 
+	{
+        string input;
+        while (true) 
+		{
+            cout << "\t \t Enter the message (use alphanumeric mostly): \t";
+            getline(cin, input);
+            if (isValidInput(input)) 
+			{
+                break;
+            } 
+			else 
+			{
+                cout << "\t \t Invalid input. Please try again." << endl;
+            }
+        }
+        return sanitizeInput(input);
+    }
+
+    virtual bool askForRepeat() const 
+	{
+        while (true) 
+		{
+            cout << "\n \n \t \t Do you want to do it again (Yes/No): ";
+            string answer;
+            getline(cin, answer);
+            transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+            if (answer == "YES" || answer == "Y") 
+			{
+                return true;
+            } 
+			else if (answer == "NO" || answer == "N") 
+			{
+                return false;
+            } 
+			else 
+			{
+                cout << "\n \t \t Invalid input. Please enter 'Yes' or 'No'." << endl;
+            }
+        }
+    }
+
+    virtual void printClosingMessage() const 
+	{
+        cout << "\n \n \n \n \t \t \t \t \t \t Have a Nice Day !!!" << endl;
+    }
+};
+
+class MorseCodeEnglishConverter : public MorseCodeConverter 
 {
-	string str;
-	cout<<"\n \t \t Enter the message (use alphanumeric mostly) : \t";
-	getline(cin,str);
-	return str;
-}
-void morse()
-{
-	logo();
-	string msg;
-	int i;
-	cout<<"\n \n ";
-	msg = input();
-	cout<<"\n \t \t Morse Code is : \t";
-	for (i=0; i < msg.length(); i++)
+	protected:
+    bool isValidInput(const string& input) const override 
+	{
+        // Perform specific validation for English characters
+        for (char ch : input) 
+		{
+            if (!isalpha(ch) && ch != ' ') 
+			{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    string convertCharToMorse(char ch) const override 
+	{
+        // Override the base class method to handle English characters
+        if (isalpha(ch)) 
+		{
+            return MorseCodeConverter::convertCharToMorse(toupper(ch));
+        }
+        return "";
+    }
+
+    void printLogo() const override 
     {
-     {
-        if (msg[i] == 'A' || msg[i]== 'a')
-            cout<<".-";
-        else if (msg[i] == 'B' || msg[i] == 'b')
-            cout<<"-...";
-        else if (msg[i] == 'C' || msg[i] == 'c')
-            cout<<"-.-.";
-        else if (msg[i] == 'D' || msg[i] == 'd')
-            cout<<"-..";
-        else if (msg[i] == 'E' || msg[i] == 'e')
-            cout<<".";
-        else if (msg[i] == 'F' || msg[i] == 'f')
-            cout<<"..-.";
-        else if (msg[i] == 'G' || msg[i] == 'g')
-            cout<<"--.";
-        else if (msg[i] == 'H' || msg[i] == 'h')
-            cout<<"....";
-        else if (msg[i] == 'I' || msg[i] == 'i')
-            cout<<"..";
-        else if (msg[i] == 'J' || msg[i] == 'j')
-            cout<<".---";
-        else if (msg[i] == 'K' || msg[i] == 'k')
-            cout<<"-.-";
-        else if (msg[i] == 'L' || msg[i] == 'l')
-            cout<<".-..";
-        else if (msg[i] == 'M' || msg[i] == 'm')
-            cout<<"--";
-        else if (msg[i] == 'N' || msg[i] == 'n')
-            cout<<"-.";
-        else if (msg[i] == 'O' || msg[i] == 'o')
-            cout<<"---";
-        else if (msg[i] == 'P' || msg[i] == 'p')
-            cout<<".--.";
-        else if (msg[i] == 'Q' || msg[i] == 'q')
-            cout<<"--.-";
-        else if (msg[i] == 'R' || msg[i] == 'r')
-            cout<<".-.";
-        else if (msg[i] == 'S' || msg[i] == 's')
-            cout<<"...";
-        else if (msg[i] == 'T' || msg[i] == 't')
-            cout<<"-";
-        else if (msg[i] == 'U' || msg[i] == 'u')
-            cout<<"..-";
-        else if (msg[i] == 'V' || msg[i] == 'v')
-            cout<<"...-";
-        else if (msg[i] == 'W' || msg[i] == 'w')
-            cout<<".--";
-        else if (msg[i] == 'X' || msg[i] == 'x')
-            cout<<"-..-";
-        else if (msg[i] == 'Y' || msg[i] == 'y')
-            cout<<"-.--";
-        else if (msg[i] == 'Z' || msg[i]== 'z')
-            cout<<"--..";
-        else if (msg[i] == ' ')
-            cout<<"    ";
-        else if (msg[i] == '1')
-            cout<<".----";
-        else if (msg[i]== '2')
-            cout<<"..---";
-        else if (msg[i]== '3')
-            cout<<"...--";
-        else if (msg[i] == '4')
-            cout<<"....-";
-        else if (msg[i] == '5')
-            cout<<".....";
-        else if (msg[i] == '6')
-            cout<<"-....";
-        else if (msg[i] == '7')
-            cout<<"--...";
-        else if (msg[i] == '8')
-            cout<<"---..";
-        else if (msg[i] == '9')
-            cout<<"----.";
-        else if (msg[i] == '0')
-            cout<<"-----";
-        else if(msg[i] == '.')
-            cout<<".-.-.-";
-        else if (msg[i] == ',')
-            cout<<"--..--";
-        else if (msg[i] == '!')
-            cout<<"-.-.--";
-        else if (msg[i] == '@')
-            cout<<".--.-.";
-        else if (msg[i] == '$')
-            cout<<"...-..-";
-        else if (msg[i] == '&')
-            cout<<".-...";
-        else if (msg[i] == '-')
-            cout<<"-....-";
-        else if (msg[i] == '_')
-            cout<<"..--.-";
-        else if (msg[i] == '=')
-            cout<<"-...-";
-        else if (msg[i] == '+')
-            cout<<".-.-.";
-        else if (msg[i] == ';')
-            cout<<"-.-.-.";
-        else if (msg[i] == ':')
-            cout<<"---...";
-        else if (msg[i] == '\'')
-            cout<<".----.";
-        else if (msg[i] == '"')
-            cout<<".-..-.";
-        else if (msg[i] == '/')
-            cout<<"-..-.";
-        else if (msg[i] == '?')
-            cout<<"..--..";
-        else
-        	cout<<msg[i];
-     }
-	 cout<<"  ";
+        system("CLS");
+		cout<<"\n \n ";
+		cout<<" \t \t ";cout<<"##     ##   # # #   # # # #    # # #   # # # #      # # # #   # # #   # # # #    # # # #  ";cout<<endl;
+		cout<<" \t \t ";cout<<"# #   # #  #     #  #      #  #        #           #         #     #  #       #  #        ";cout<<endl;
+		cout<<" \t \t ";cout<<"#  # #  #  #     #  #      #  #        #           #         #     #  #       #  #        ";cout<<endl;
+	    cout<<" \t \t ";cout<<"#   #   #  #     #  # # # #    # # #   # # #       #         #     #  #       #  # # #    ";cout<<endl;
+	   	cout<<" \t \t ";cout<<"#       #  #     #  #   #           #  #           #         #     #  #       #  #        ";cout<<endl;
+	   	cout<<" \t \t ";cout<<"#       #  #     #  #     #         #  #           #         #     #  #       #  #        ";cout<<endl;
+	   	cout<<" \t \t ";cout<<"#       #   # # #   #      #   # # #   # # # #      # # # #   # # #   # # # #    # # # #  ";cout<<endl;
 	}
-}
-int option()
+};
+
+int main() 
 {
-	cout<<"\n \n \t \t Do you want to do it again (Yes/No) : ";
-	char x[100];
-	fflush(stdin);
-	char str1[] = "yes";char str2[] = "YES";char str3[] = "y";char str4[] = "Y";char str5[] = "Yes";
-	char str6[] = "NO";char str7[] = "no";char str8[] = "N";char str9[] = "n";char str10[] = "No";
-	gets(x);
-	if((strcmp(x,str1)==0)||(strcmp(x,str2)==0)||(strcmp(x,str3)==0)||(strcmp(x,str4)==0)||(strcmp(x,str5)==0))
-	{
-		return 1;
-	}
-	else if((strcmp(x,str6)==0)||(strcmp(x,str7)==0)||(strcmp(x,str8)==0)||(strcmp(x,str9)==0)||(strcmp(x,str10)==0))
-	{
-		return 0;
-	}
-	else
-	{
-		cout<<" \n \t \t \t \t \t \t \t >>> Wrong Input <<<";
-		return option();
-	}
-}
-void close()
-{
-	logo();
-	cout<<"\n \n \n \n \t \t \t \t \t \t Have a Nice Day !!!";
-}
-int main()
-{
-	system("color 0A");
-	repeat:
-	morse();
-	int c = option();
-	if(c==1)
-	{
-		goto repeat;
-	}
-	else
-	{
-		close();
-	}
-	getch();
-	return 0;
-}
+    system("color 7c");
+    MorseCodeEnglishConverter converter;
+    converter.convertToMorse();
+    return 0;
+}	
