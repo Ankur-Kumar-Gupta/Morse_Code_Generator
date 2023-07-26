@@ -1,13 +1,6 @@
-# Morse_Code_Generator
-
-CLI (command line interface) software to generate Morse code of the given message. 
-
-
-Morse code is a method used in telecommunication to encode text characters as standardized sequences of two different signal durations, called dots and dashes or dits and dahs. The International Morse Code encodes the 26 English letters A through Z, some non-English letters, the Arabic numerals and a small set of punctuation and procedural signals (prosigns). There is no distinction between upper and lower case letters.
-
 # Morse Code Generator
 
-This C++ project is a Morse Code Generator that allows users to convert English messages to Morse code. It provides a simple and interactive command-line interface for inputting messages and seeing their Morse code equivalents. The program also supports repeating the conversion for multiple messages.
+This C++ project is a Morse Code Generator that allows users to convert English messages to Morse code. Morse code is a method used in telecommunication to encode text characters as standardized sequences of two different signal durations, called dots and dashes or dits and dahs. The International Morse Code encodes the 26 English letters A through Z, some non-English letters, the Arabic numerals and a small set of punctuation and procedural signals (prosigns). There is no distinction between upper and lower case letters. It provides a simple and interactive command-line interface for inputting messages and seeing their Morse code equivalents. The program also supports repeating the conversion for multiple messages.
 
 ## Table of Contents
 - [Introduction](#introduction)
