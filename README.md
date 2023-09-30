@@ -48,7 +48,7 @@ To run the Morse Code Generator on your local machine, follow these steps:
 
 ## Preview
 
-![preview](/preview/interface.png)
+![preview](preview/interface_preview.jpg)
 
 ## License
 
