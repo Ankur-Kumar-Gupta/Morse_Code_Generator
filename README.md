@@ -46,32 +46,9 @@ To run the Morse Code Generator on your local machine, follow these steps:
 4. If you want to convert another message, the program will prompt you to do so.
 5. To exit the program, type "No" or "N" when asked if you want to convert another message.
 
-## Example
+## Preview
 
-```
-$ ./morse_code_generator
-
-		##     ##   # # #   # # # #    # # #   # # # #      # # # #   # # #   # # # #    # # # #
-		# #   # #  #     #  #      #  #        #           #         #     #  #       #  #
-		#  # #  #  #     #  #      #  #        #           #         #     #  #       #  #
-		#   #   #  #     #  # # # #    # # #   # # #       #         #     #  #       #  # # #
-		#       #  #     #  #   #           #  #           #         #     #  #       #  #
-		#       #  #     #  #     #         #  #           #         #     #  #       #  #
-		#       #   # # #   #      #   # # #   # # # #      # # # #   # # #   # # # #    # # # #
-
-		Enter the message (use alphanumeric mostly): Hello, World!
-		Morse Code is : .... . .-.. .-.. --- --..--     .-- --- .-. .-.. -.. -.-.-- 
-
-		Do you want to do it again (Yes/No): Yes
-
-		Enter the message (use alphanumeric mostly): Github is awesome!
-		Morse Code is : --. ..- -... .... ..- - ....     .. ...     .- .-- --- -- . ... .-- .!
-
-		Do you want to do it again (Yes/No): No
-
-
-								Have a Nice Day !!!
-```
+![preview](/preview/interface.png)
 
 ## License
 
